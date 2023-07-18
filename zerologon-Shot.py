@@ -5,7 +5,6 @@ import argparse
 
 from binascii import unhexlify
 from lib.exploit import zerologon
-from lib.ldapquery import LDAPQuery
 from lib.secretsdump_nano import dump
 from lib.restorepassword import ChangeMachinePassword
 from impacket.examples.utils import parse_target
