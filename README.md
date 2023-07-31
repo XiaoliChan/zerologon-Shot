@@ -14,6 +14,7 @@ Zerologon exploit with restore DC password automatically
 <li><a href="#usage">Usage</a></li>
 <li><a href="#screenshots">Screenshots</a></li>
 <li><a href="#how-it-works">How it works?</a></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
 <li><a href="#references">References</a></li>
 </ol>
 
@@ -63,6 +64,14 @@ python3 zerologon-Shot.py xiaoli-2008.com/'WIN-D6SJTQG7I0K$'@192.168.85.210 -tar
 - Third: retrieve all domain admins credentials with dcsync.
 - Fourth: use the domain admin's credential to retrieve DC LSA secrets to get "plain_password_hex".
 - Last: restore DC password with "plain_password_hex" by domain admin.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Disclaimer
+The spirit of this Open Source initiative is to help security researchers, and the community, speed up research and educational activities related to the implementation of networking protocols and stacks.
+
+The information in this repository is for research and educational purposes and not meant to be used in production environments and/or as part of commercial products.
+
+If you desire to use this code or some part of it for your own uses, we recommend applying proper security development life cycle and secure coding practices, as well as generate and track the respective indicators of compromise according to your needs.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## References
