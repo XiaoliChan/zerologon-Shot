@@ -19,6 +19,7 @@ class ChangeMachinePassword:
         self.__password = password
 
     def dump(self, remoteName, remoteHost):
+        
 
         stringbinding = epm.hept_map(remoteHost, nrpc.MSRPC_UUID_NRPC, protocol = 'ncacn_ip_tcp')
         logging.info('StringBinding %s'%stringbinding)

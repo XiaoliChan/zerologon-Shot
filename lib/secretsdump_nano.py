@@ -23,8 +23,8 @@ class dump():
         # Remove last ','
         baseDN = baseDN[:-1]
 
-        if self.kdcHost is not None:
-            self.domain = self.kdcHost
+        if self.kdcHost is None:
+            self.kdcHost = self.remoteHost
 
         ldapConnection = ldap.LDAPConnection('ldap://%s'%self.domain, baseDN, self.kdcHost)
         ldapConnection.login(self.dcName, '', self.domain, '', '')
